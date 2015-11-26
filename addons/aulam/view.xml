@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<openerp>
+    <data>
+        <record id="view_alumno_tree" model="ir.ui.view">
+            <field name="name">view.alumno.tree</field>
+            <field name="model">aulam.alumno</field>
+            <field name="arch" type="xml">
+                <tree string="Alumnos">
+                    <field name="id_partner" string="Nombre"/>
+                    <field name="fAlta" string="Fecha de alta"/>
+                    <field name="id_colegio"/>
+                    <field name="asignaturas" string="Movil"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="aulam_alumno_action" model="ir.actions.act_window">
+       <field name="name">Listado de alumnos</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">aulam.alumno</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p>Búsqueda de alumnos</p>
+            </field>
+    </record>
+    
+    <!-- top level menu: no parent -->
+    <!-- Menú superior -->
+    <menuitem id="main_aulam_menu" name="Academia"/>
+    
+    <!-- Menú lateral sin acciones -->
+    <menuitem id="menu1_aulam_menu" name="Aula Milladoiro"
+                  parent="main_aulam_menu"/>
+                  
+    <!-- the following menuitem should appear *after*
+             its parent openacademy_menu and *after* its
+             action course_list_action -->
+    <!-- Menús de las diferentes vistas -->
+    <menuitem id="menu_aulam_menu" name="Alumnos" parent="menu1_aulam_menu"
+                  action="aulam_alumno_action"/>
+  <!--  <menuitem action="aulam_alumno_action"
+            id="menu_aulam_alumno"
+            parent="base.menu_sales"
+            sequence="99"/> -->
+    
+    </data>
+</openerp>
