@@ -16,7 +16,7 @@ class aulamAlumno(models.Model):
     id_tarifa = fields.Many2one('aulam.tarifa','Tarifa')
     id_curso = fields.Many2one('aulam.curso','Curso')
     id_calificacion = fields.One2many('aulam.calificacion','id_alumno','Calificacion')
-    id_horario = fields.One2many('aulam.horario','id_alumno','Horario')
+    id_horario = fields.One2many('aulam.horario','id_alumno','Horio')
     fAlta = fields.Date()
     fBaja = fields.Date()
     hExtra = fields.Float()
