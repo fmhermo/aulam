@@ -41,6 +41,7 @@ class aulamTarifa(models.Model):
     _name = 'aulam.tarifa'
     nomTarifa = fields.Char()
     importe = fields.Float()
+    _rec_name = 'nomTarifa'
     
 class aulamCalificacion(models.Model):
     _name = 'aulam.calificacion'

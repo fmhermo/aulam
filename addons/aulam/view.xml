@@ -9,12 +9,11 @@
                     <field name="id_partner" string="Nombre"/>
                     <field name="fAlta" string="Fecha de alta"/>
                     <field name="id_colegio"/>
-                    <field name="asignaturas" string="Movil"/>
+                    <field name="asignaturas" string="Asignaturas"/>
                 </tree>
             </field>
         </record>
-
-    <record id="aulam_alumno_action" model="ir.actions.act_window">
+    <record id="alumno_action" model="ir.actions.act_window">
        <field name="name">Listado de alumnos</field>
        <field name="type">ir.actions.act_window</field>
        <field name="res_model">aulam.alumno</field>
@@ -24,25 +23,31 @@
               <p>Búsqueda de alumnos</p>
             </field>
     </record>
-    
-    <!-- top level menu: no parent -->
+    <record id="formulario_alumno" model="ir.ui.view">
+		<field name="name">alumno.form</field>
+		<field name="model">aulam.alumno</field>
+		<field name="priority">1</field>
+		<field name="arch" type="xml">
+			<form string="Ficha">
+				<sheet>
+				<group>
+					<field name="name"/>
+					<field name="id_colegio"/>					
+				</group>
+				</sheet>
+			</form>
+		</field>
+    </record> 
     <!-- Menú superior -->
-    <menuitem id="main_aulam_menu" name="Academia"/>
-    
+    <menuitem id="main_aulam_menu" name="Aula Milladoiro"/>
     <!-- Menú lateral sin acciones -->
-    <menuitem id="menu1_aulam_menu" name="Aula Milladoiro"
+    <menuitem id="aulam_menu" name="Academia"
                   parent="main_aulam_menu"/>
-                  
-    <!-- the following menuitem should appear *after*
-             its parent openacademy_menu and *after* its
-             action course_list_action -->
     <!-- Menús de las diferentes vistas -->
-    <menuitem id="menu_aulam_menu" name="Alumnos" parent="menu1_aulam_menu"
-                  action="aulam_alumno_action"/>
-  <!--  <menuitem action="aulam_alumno_action"
-            id="menu_aulam_alumno"
-            parent="base.menu_sales"
-            sequence="99"/> -->
-    
+    <menuitem id="menu_aulam_menu" name="Alumnos" parent="aulam_menu"
+                  action="alumno_action"/>
+     <menuitem id="menu_aulam_menu" name="Ficha" parent="aulam_menu"
+                  action="formulario_alumno"/> 
     </data>
 </openerp>
+    
