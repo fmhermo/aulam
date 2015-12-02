@@ -23,31 +23,70 @@
               <p>Búsqueda de alumnos</p>
             </field>
     </record>
-    <record id="formulario_alumno" model="ir.ui.view">
+    <record id="colegio_action" model="ir.actions.act_window">
+      <field name="name">Listado de colegios</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">aulam.colegio</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p>Búsqueda de colegios</p>
+            </field>
+    </record>
+    <record id="view_colegio_tree" model="ir.ui.view">
+      <field name="name">view.colegio.tree</field>
+      <field name="model">aulam.colegio</field>
+      <field name="arch" type="xml">
+        <tree string="Colegios">
+          <field name="nomColegio" string="Nombre del colegio"/>
+          <field name="email" string="Correo Electrónico"/>
+          <field name="tlf" string="Teléfono"/>
+        </tree>
+      </field>
+    </record>
+    <record id="curso_action" model="ir.actions.act_window">
+      <field name="name">Listado de Cursos</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">aulam.curso</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p>Búsqueda de cursos</p>
+            </field>
+    </record>
+    <record id="view_curso_tree" model="ir.ui.view">
+      <field name="name">view.curso.tree</field>
+      <field name="model">aulam.curso</field>
+      <field name="arch" type="xml">
+        <tree string="Cursos">
+          <field name="ciclo" string="Ciclo"/>
+          <field name="orden" string="Orden"/>
+        </tree>
+      </field>
+    </record>    
+  <record id="formulario_alumno" model="ir.ui.view">
 		<field name="name">alumno.form</field>
 		<field name="model">aulam.alumno</field>
-		<field name="priority">1</field>
+		<field name="type">form</field>
 		<field name="arch" type="xml">
 			<form string="Ficha">
 				<sheet>
 				<group>
-					<field name="name"/>
-					<field name="id_colegio"/>					
+					<field name="id_partner" string = "Nombre" select="1"/>
+					<field name="id_colegio" select="1" string="Colegio"/>									
 				</group>
 				</sheet>
 			</form>
 		</field>
-    </record> 
+    </record>  
     <!-- Menú superior -->
     <menuitem id="main_aulam_menu" name="Aula Milladoiro"/>
     <!-- Menú lateral sin acciones -->
-    <menuitem id="aulam_menu" name="Academia"
-                  parent="main_aulam_menu"/>
+    <menuitem id="aulam_menu" name="Academia" parent="main_aulam_menu"/>
     <!-- Menús de las diferentes vistas -->
-    <menuitem id="menu_aulam_menu" name="Alumnos" parent="aulam_menu"
-                  action="alumno_action"/>
-     <menuitem id="menu_aulam_menu" name="Ficha" parent="aulam_menu"
-                  action="formulario_alumno"/> 
-    </data>
+    <menuitem id="alumnos_listado" name="Alumnos" parent="aulam_menu" action="alumno_action"/>
+    <menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
+    <menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
+    	 	    
+  </data>
 </openerp>
-    
