@@ -9,6 +9,7 @@
                     <field name="id_partner" string="Nombre"/>
                     <field name="fAlta" string="Fecha de alta"/>
                     <field name="id_colegio"/>
+                    <field name="id_curso"/>
                     <field name="asignaturas" string="Asignaturas"/>
                 </tree>
             </field>
@@ -64,6 +65,26 @@
         </tree>
       </field>
     </record>    
+     <record id="tarifa_action" model="ir.actions.act_window">
+      <field name="name">Listado de tarifas</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">aulam.tarifa</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p>Búsqueda de tarifas</p>
+            </field>
+    </record>
+    <record id="view_tarifa_tree" model="ir.ui.view">
+      <field name="name">view.tarifa.tree</field>
+      <field name="model">aulam.tarifa</field>
+      <field name="arch" type="xml">
+        <tree string="tarifas">
+          <field name="nomTarifa" string="Tarifa"/>
+          <field name="importe" string="Importe"/>
+        </tree>
+      </field>
+    </record>
   <record id="formulario_alumno" model="ir.ui.view">
 		<field name="name">alumno.form</field>
 		<field name="model">aulam.alumno</field>
@@ -72,8 +93,12 @@
 			<form string="Ficha">
 				<sheet>
 				<group>
-					<field name="id_partner" string = "Nombre" select="1"/>
-					<field name="id_colegio" select="1" string="Colegio"/>									
+					<field name="id_partner" string = "Nombre"/>
+					<field name="id_colegio" string="Colegio"/>									
+					<field name="id_tarifa" string="Tarifa"/>									
+				</group>
+				<group>
+					<field name="id_curso" string="Curso"/>														
 				</group>
 				</sheet>
 			</form>
@@ -87,6 +112,7 @@
     <menuitem id="alumnos_listado" name="Alumnos" parent="aulam_menu" action="alumno_action"/>
     <menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
     <menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
-    	 	    
+    <menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>    	    
+    	
   </data>
 </openerp>

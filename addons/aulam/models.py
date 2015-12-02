@@ -23,7 +23,7 @@ class aulamAlumno(models.Model):
     anno = fields.Char()
     asignaturas = fields.Char()
     _rec_name = 'id_partner'
-    
+
 
 class aulamColegio(models.Model):
     _name = 'aulam.colegio'
@@ -36,6 +36,14 @@ class aulamCurso(models.Model):
     _name = 'aulam.curso'
     orden = fields.Char()
     ciclo = fields.Char()
+
+    def name_get(self, cr, uid, ids, context={}):
+        if not len(ids):
+            return []
+        res=[]
+        for elto in self.browse(cr, uid, ids,context=context):
+            res.append((elto.id, elto.orden + ' de ' + elto.ciclo))    
+        return res
 
 class aulamTarifa(models.Model):
     _name = 'aulam.tarifa'
