@@ -92,18 +92,52 @@
 		<field name="arch" type="xml">
 			<form string="Ficha">
 				<sheet>
-				<group>
-					<field name="id_partner" string = "Nombre"/>
-					<field name="id_colegio" string="Colegio"/>									
-					<field name="id_tarifa" string="Tarifa"/>									
-				</group>
-				<group>
-					<field name="id_curso" string="Curso"/>														
-				</group>
+				  <group colspan="5">
+				  	<group col="1" colspan="1">
+				  	<separator string="Datos del Alumno" colspan="2"/>
+					<field name="id_partner" string="Nombre"/>
+					<field name="id_tarifa" string="Tarifa"/>
+					</group>	
+					<group col="3">
+						<field name="id_colegio" string="Colegio"/>	
+						<field name="id_calificacion" string="Calificaciones"/>
+				  </group>
+				  </group>									
+				  <notebook>
+				  	<page string="Descripcion">
+						<field name="id_curso" string="Curso"/>
+					</page>													
+				  	<page string="Descripcion 2">
+						<field name="asignaturas" string="Asignaturas"/>
+					</page>													
+				  </notebook>
+				  
 				</sheet>
 			</form>
 		</field>
     </record>  
+    <record model="ir.ui.view" id="alumno_search_view">
+      <field name="name">alumno.search</field>
+      <field name="model">aulam.alumno</field>
+      <field name="arch" type="xml">
+        <search>
+        	<field name="asignaturas"/>
+        </search>
+      </field>
+    </record>
+    
+    <record id="view_calificacion_tree" model="ir.ui.view">
+      <field name="name">view.calificacion.tree</field>
+      <field name="model">aulam.calificacion</field>
+      <field name="arch" type="xml">
+        <tree string="tarifas">
+          <field name="asignatura" string="Asignatura"/>
+          <field name="fecha" string="Fecha"/>
+          <field name="calificacion" string="Calificacion"/>
+        </tree>
+      </field>
+    </record> 	
+         
     <!-- Menú superior -->
     <menuitem id="main_aulam_menu" name="Aula Milladoiro"/>
     <!-- Menú lateral sin acciones -->
@@ -113,6 +147,7 @@
     <menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
     <menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
     <menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>    	    
+ <!--   <menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
     	
   </data>
 </openerp>
