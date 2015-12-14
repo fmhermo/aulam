@@ -1,153 +1,180 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
-    <data>
-        <record id="view_alumno_tree" model="ir.ui.view">
-            <field name="name">view.alumno.tree</field>
-            <field name="model">aulam.alumno</field>
-            <field name="arch" type="xml">
-                <tree string="Alumnos">
-                    <field name="id_partner" string="Nombre"/>
-                    <field name="fAlta" string="Fecha de alta"/>
-                    <field name="id_colegio"/>
-                    <field name="id_curso"/>
-                    <field name="asignaturas" string="Asignaturas"/>
-                </tree>
-            </field>
-        </record>
-    <record id="alumno_action" model="ir.actions.act_window">
-       <field name="name">Listado de alumnos</field>
-       <field name="type">ir.actions.act_window</field>
-       <field name="res_model">aulam.alumno</field>
-       <field name="view_type">form</field>
-       <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p>Búsqueda de alumnos</p>
-            </field>
-    </record>
-    <record id="colegio_action" model="ir.actions.act_window">
-      <field name="name">Listado de colegios</field>
-       <field name="type">ir.actions.act_window</field>
-       <field name="res_model">aulam.colegio</field>
-       <field name="view_type">form</field>
-       <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p>Búsqueda de colegios</p>
-            </field>
-    </record>
-    <record id="view_colegio_tree" model="ir.ui.view">
-      <field name="name">view.colegio.tree</field>
-      <field name="model">aulam.colegio</field>
-      <field name="arch" type="xml">
-        <tree string="Colegios">
-          <field name="nomColegio" string="Nombre del colegio"/>
-          <field name="email" string="Correo Electrónico"/>
-          <field name="tlf" string="Teléfono"/>
-        </tree>
-      </field>
-    </record>
-    <record id="curso_action" model="ir.actions.act_window">
-      <field name="name">Listado de Cursos</field>
-       <field name="type">ir.actions.act_window</field>
-       <field name="res_model">aulam.curso</field>
-       <field name="view_type">form</field>
-       <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p>Búsqueda de cursos</p>
-            </field>
-    </record>
-    <record id="view_curso_tree" model="ir.ui.view">
-      <field name="name">view.curso.tree</field>
-      <field name="model">aulam.curso</field>
-      <field name="arch" type="xml">
-        <tree string="Cursos">
-          <field name="ciclo" string="Ciclo"/>
-          <field name="orden" string="Orden"/>
-        </tree>
-      </field>
-    </record>    
-     <record id="tarifa_action" model="ir.actions.act_window">
-      <field name="name">Listado de tarifas</field>
-       <field name="type">ir.actions.act_window</field>
-       <field name="res_model">aulam.tarifa</field>
-       <field name="view_type">form</field>
-       <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p>Búsqueda de tarifas</p>
-            </field>
-    </record>
-    <record id="view_tarifa_tree" model="ir.ui.view">
-      <field name="name">view.tarifa.tree</field>
-      <field name="model">aulam.tarifa</field>
-      <field name="arch" type="xml">
-        <tree string="tarifas">
-          <field name="nomTarifa" string="Tarifa"/>
-          <field name="importe" string="Importe"/>
-        </tree>
-      </field>
-    </record>
-  <record id="formulario_alumno" model="ir.ui.view">
-		<field name="name">alumno.form</field>
-		<field name="model">aulam.alumno</field>
-		<field name="type">form</field>
-		<field name="arch" type="xml">
-			<form string="Ficha">
-				<sheet>
-				  <group colspan="5">
-				  	<group col="1" colspan="1">
-				  	<separator string="Datos del Alumno" colspan="2"/>
+	<data>
+		<record id="alumno_action" model="ir.actions.act_window">
+			<field name="name">Listado de alumnos</field>
+			<field name="type">ir.actions.act_window</field>
+	    	<field name="res_model">aulam.alumno</field>
+    		<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+  				<p>Búsqueda de alumnos</p>
+    		</field>
+  		</record>
+		<record id="colegio_action" model="ir.actions.act_window">
+			<field name="name">Listado de colegios</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">aulam.colegio</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p>Búsqueda de colegios</p>
+			</field>
+		</record>
+		<record id="curso_action" model="ir.actions.act_window">
+			<field name="name">Listado de Cursos</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">aulam.curso</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p>Búsqueda de cursos</p>
+			</field>
+		</record>
+		<record id="tarifa_action" model="ir.actions.act_window">
+			<field name="name">Listado de tarifas</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">aulam.tarifa</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p>Búsqueda de tarifas</p>
+			</field>
+		</record>
+		<record id="view_alumno_tree" model="ir.ui.view">
+			<field name="name">view.alumno.tree</field>
+			<field name="model">aulam.alumno</field>
+			<field name="arch" type="xml">
+				<tree string="Alumnos">
 					<field name="id_partner" string="Nombre"/>
-					<field name="id_tarifa" string="Tarifa"/>
-					</group>	
-					<group col="3">
-						<field name="id_colegio" string="Colegio"/>	
-						<field name="id_calificacion" string="Calificaciones"/>
-				  </group>
-				  </group>									
-				  <notebook>
-				  	<page string="Descripcion">
-						<field name="id_curso" string="Curso"/>
-					</page>													
-				  	<page string="Descripcion 2">
-						<field name="asignaturas" string="Asignaturas"/>
-					</page>													
-				  </notebook>
-				  
-				</sheet>
-			</form>
-		</field>
-    </record>  
-    <record model="ir.ui.view" id="alumno_search_view">
-      <field name="name">alumno.search</field>
-      <field name="model">aulam.alumno</field>
-      <field name="arch" type="xml">
-        <search>
-        	<field name="asignaturas"/>
-        </search>
-      </field>
-    </record>
-    
-    <record id="view_calificacion_tree" model="ir.ui.view">
-      <field name="name">view.calificacion.tree</field>
-      <field name="model">aulam.calificacion</field>
-      <field name="arch" type="xml">
-        <tree string="tarifas">
-          <field name="asignatura" string="Asignatura"/>
-          <field name="fecha" string="Fecha"/>
-          <field name="calificacion" string="Calificacion"/>
-        </tree>
-      </field>
-    </record> 	
-         
-    <!-- Menú superior -->
-    <menuitem id="main_aulam_menu" name="Aula Milladoiro"/>
-    <!-- Menú lateral sin acciones -->
-    <menuitem id="aulam_menu" name="Academia" parent="main_aulam_menu"/>
-    <!-- Menús de las diferentes vistas -->
-    <menuitem id="alumnos_listado" name="Alumnos" parent="aulam_menu" action="alumno_action"/>
-    <menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
-    <menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
-    <menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>    	    
- <!--   <menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
-    	
-  </data>
+					<field name="fAlta" string="Fecha de alta"/>
+					<field name="id_colegio"/>
+					<field name="id_curso"/>
+					<field name="asignaturas" string="Asignaturas"/>
+				</tree>
+			</field>
+		</record>    
+		<record id="view_colegio_tree" model="ir.ui.view">
+			<field name="name">view.colegio.tree</field>
+			<field name="model">aulam.colegio</field>
+			<field name="arch" type="xml">
+				<tree string="Colegios">
+					<field name="nomColegio" string="Nombre del colegio"/>
+					<field name="email" string="Correo Electrónico"/>
+					<field name="tlf" string="Teléfono"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_curso_tree" model="ir.ui.view">
+			<field name="name">view.curso.tree</field>
+			<field name="model">aulam.curso</field>
+			<field name="arch" type="xml">
+				<tree string="Cursos">
+					<field name="ciclo" string="Ciclo"/>
+					<field name="orden" string="Orden"/>
+				</tree>
+			</field>
+		</record>    
+		<record id="view_tarifa_tree" model="ir.ui.view">
+			<field name="name">view.tarifa.tree</field>
+			<field name="model">aulam.tarifa</field>
+			<field name="arch" type="xml">
+				<tree string="tarifas">
+					<field name="nomTarifa" string="Tarifa"/>
+					<field name="importe" string="Importe"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_calificacion_tree" model="ir.ui.view">
+			<field name="name">view.calificacion.tree</field>
+			<field name="model">aulam.calificacion</field>
+			<field name="arch" type="xml">
+				<tree string="tarifas">
+					<field name="asignatura" string="Asignatura"/>
+					<field name="fecha" string="Fecha"/>
+					<field name="calificacion" string="Nota"/>
+				</tree>
+			</field>
+		</record> 	
+		<record id="view_horario_tree" model="ir.ui.view">
+			<field name="name">view.horario.tree</field>
+			<field name="model">aulam.horario</field>
+			<field name="arch" type="xml">
+				<tree string="tarifas">
+					<field name="wDay" string="Día"/>
+					<field name="checkin" string="Entrada"/>
+					<field name="checkout" string="Salida"/>
+				</tree>
+			</field>
+		</record> 	
+		<record id="formulario_alumno" model="ir.ui.view">
+			<field name="name">alumno.form</field>
+			<field name="model">aulam.alumno</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Ficha">
+					<sheet>
+						<group col="5">
+							<group colspan="2" width="60%">
+<!--								<separator string="Datos del Alumno" colspan="2"/> -->
+								<field name="id_partner" string="Nombre"/>
+								<field name="id_tutor1" string="Tutor"/>								
+								<field name="id_tarifa" string="Tarifa"/>
+								<field name="mobile" string="Móvil"/>
+								<field name="id_colegio" string="Colegio"/>	
+							</group>								
+							<group colspan="3">								
+								<field name="id_calificacion" string="Calificaciones"/>
+								<field name="id_horario" string="Horario"/>								
+							</group>								
+						</group>									
+						<notebook>
+							<page string="Descripcion">
+								<field name="id_curso" string="Curso"/>
+							</page>													
+							<page string="Descripcion 2">
+								<field name="asignaturas" string="Asignaturas"/>
+							</page>													
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="formulario_calificacion" model="ir.ui.view">
+			<field name="name">calificacion.form</field>
+			<field name="model">aulam.calificacion</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Calificación">
+					<sheet>
+						<group>
+							<group>
+								<field name="asignatura" string="Asignatura"/>
+								<field name="fecha" string="Fecha"/>
+								<field name="calificacion" string="Calificación"/>
+							</group>	
+						</group>									
+					</sheet>
+				</form>
+			</field>
+		</record>  
+		<record model="ir.ui.view" id="alumno_search_view">
+			<field name="name">alumno.search</field>
+			<field name="model">aulam.alumno</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="id_partner" string="Alumno"/>
+				</search>
+			</field>
+		</record>
+		<!-- Menú superior -->
+		<menuitem id="main_aulam_menu" name="Aula Milladoiro"/>
+		<!-- Menú lateral sin acciones -->
+		<menuitem id="aulam_menu" name="Academia" parent="main_aulam_menu"/>
+		<!-- Menús de las diferentes vistas -->
+		<menuitem id="alumnos_listado" name="Alumnos" parent="aulam_menu" action="alumno_action"/>
+		<menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
+		<menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
+		<menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>    	    	<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
+	</data>
 </openerp>

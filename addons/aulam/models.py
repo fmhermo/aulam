@@ -22,6 +22,8 @@ class aulamAlumno(models.Model):
     hExtra = fields.Float(string="Horas Extra")
     anno = fields.Char("Año académico")
     asignaturas = fields.Char(string="Asignaturas")
+    mobile = fields.Char("Móvil", related='id_partner.mobile')
+    id_tutor1 = fields.Many2one('res.partner',required=True)
     _rec_name = 'id_partner'
 
 
@@ -66,7 +68,6 @@ class aulamHorario(models.Model):
     wDay = fields.Char(string="Día de la semana")
     checkin = fields.Char(string="Entrada")
     checkout = fields.Char(string="Salida")
-
 
     #partner_id = fields.many2
 class aulamFactura(models.Model):
