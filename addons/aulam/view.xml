@@ -47,10 +47,12 @@
 			<field name="arch" type="xml">
 				<tree string="Alumnos">
 					<field name="id_partner" string="Nombre"/>
-					<field name="fAlta" string="Fecha de alta"/>
-					<field name="id_colegio"/>
-					<field name="id_curso"/>
-					<field name="asignaturas" string="Asignaturas"/>
+					<field name="telefono" string="Tlf. personal"/>
+					<field name="id_tutor1" string="Tutor 1"/>
+					<field name="tlf_t1" string="Teléfono de contacto"/>
+					<field name="id_tutor2" string="Otro tutor"/>					
+					<field name="tlf_t2" string="2º teléfono de contacto"/>					
+					
 				</tree>
 			</field>
 		</record>    
@@ -114,28 +116,49 @@
 			<field name="arch" type="xml">
 				<form string="Ficha">
 					<sheet>
-						<group col="5">
-							<group colspan="2" width="60%">
-<!--								<separator string="Datos del Alumno" colspan="2"/> -->
-								<field name="id_partner" string="Nombre"/>
+						<h1><field name="id_partner" string="Nombre"/></h1>
+						<notebook>
+						<page string="Personales">
+							<group col="4" colspan="2">
+<!--							<field name="image" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/> -->
+								<field name="dni" string="DNI"/>
+								<field name="nacimiento" string="F. nacimiento"/>
+								<field name="telefono" string="Tlf. Fijo"/>								
+								<field name="movil" string="Móvil"/>								
+								<field name="email" string="Correo electrónico"/>							
+								<field name="domicilio" string="Domicilio"/>
+								<field name="cpt" string="C. Postal"/>
+								<field name="localidad" string="Localidad"/>	
 								<field name="id_tutor1" string="Tutor"/>								
+								<field name="tlf_t1" string="Tlf. contacto"/>
+								<field name="id_tutor2" string="Tutor 2º"/>								
+								<field name="tlf_t2" string="Tlf. contacto"/>																	
+							</group>
+						</page>													
+						<page string="Aula">
+							<group>
 								<field name="id_tarifa" string="Tarifa"/>
-								<field name="mobile" string="Móvil"/>
+								<field name="asignaturas" string="Asignaturas"/>
+								<field name="id_horario" string="Horario"/>
+								<field name="observaciones" string="Observaciones"/>																
+							</group>							
+						</page>
+						<page string="Académicos">
+							<group>
 								<field name="id_colegio" string="Colegio"/>	
+								<field name="id_calificacion" string="Calificaciones"/>
+							</group>
+						</page>													
+						</notebook>
+						
+<!--							<separator string="Datos del Alumno" colspan="2"/>
+								<group col="5">
+							<group colspan="2" width="60%">
 							</group>								
 							<group colspan="3">								
-								<field name="id_calificacion" string="Calificaciones"/>
-								<field name="id_horario" string="Horario"/>								
 							</group>								
-						</group>									
-						<notebook>
-							<page string="Descripcion">
-								<field name="id_curso" string="Curso"/>
-							</page>													
-							<page string="Descripcion 2">
-								<field name="asignaturas" string="Asignaturas"/>
-							</page>													
-						</notebook>
+						</group>		-->					
+
 					</sheet>
 				</form>
 			</field>
