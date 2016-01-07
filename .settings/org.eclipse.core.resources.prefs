@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//addons/aulam/__init__.py=utf-8
 encoding//addons/aulam/__openerp__.py=utf-8
 encoding//addons/aulam/controllers.py=utf-8
 encoding//addons/aulam/models.py=utf-8

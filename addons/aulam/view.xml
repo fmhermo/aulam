@@ -47,11 +47,13 @@
 			<field name="arch" type="xml">
 				<tree string="Alumnos">
 					<field name="id_partner" string="Nombre"/>
+					<field name="id_colegio" string="Colegio"/>
+					<field name="id_curso" string="Curso"/>				
 					<field name="telefono" string="Tlf. personal"/>
 					<field name="id_tutor1" string="Tutor 1"/>
 					<field name="tlf_t1" string="Teléfono de contacto"/>
-					<field name="id_tutor2" string="Otro tutor"/>					
-					<field name="tlf_t2" string="2º teléfono de contacto"/>					
+	<!--				<field name="id_tutor2" string="Otro tutor"/>  					
+					<field name="tlf_t2" string="2º teléfono de contacto"/>  -->					
 					
 				</tree>
 			</field>
@@ -72,8 +74,8 @@
 			<field name="model">aulam.curso</field>
 			<field name="arch" type="xml">
 				<tree string="Cursos">
-					<field name="ciclo" string="Ciclo"/>
-					<field name="orden" string="Orden"/>
+					<field name="nomCurso" string="Curso"/>
+<!--					<field name="orden" string="Orden"/>  -->
 				</tree>
 			</field>
 		</record>    
@@ -92,7 +94,7 @@
 			<field name="model">aulam.calificacion</field>
 			<field name="arch" type="xml">
 				<tree string="tarifas">
-					<field name="asignatura" string="Asignatura"/>
+					<field name="id_asignatura" string="Asignatura"/>
 					<field name="fecha" string="Fecha"/>
 					<field name="calificacion" string="Nota"/>
 				</tree>
@@ -103,12 +105,22 @@
 			<field name="model">aulam.horario</field>
 			<field name="arch" type="xml">
 				<tree string="tarifas">
-					<field name="wDay" string="Día"/>
+					<field name="id_wday" string="Día"/>
 					<field name="checkin" string="Entrada"/>
 					<field name="checkout" string="Salida"/>
 				</tree>
 			</field>
+		</record>
+		<record id="view_asignatura_tree" model="ir.ui.view">
+			<field name="name">view.asignatura.tree</field>
+			<field name="model">aulam.asignatura</field>
+			<field name="arch" type="xml">
+				<tree string="asignatura">
+					<field name="nomAsignatura" string="Asignatura"/>
+				</tree>
+			</field>
 		</record> 	
+		 	
 		<record id="formulario_alumno" model="ir.ui.view">
 			<field name="name">alumno.form</field>
 			<field name="model">aulam.alumno</field>
@@ -119,35 +131,52 @@
 						<h1><field name="id_partner" string="Nombre"/></h1>
 						<notebook>
 						<page string="Personales">
-							<group col="4" colspan="2">
+						<group>
+							<group>
 <!--							<field name="image" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/> -->
-								<field name="dni" string="DNI"/>
-								<field name="nacimiento" string="F. nacimiento"/>
 								<field name="telefono" string="Tlf. Fijo"/>								
 								<field name="movil" string="Móvil"/>								
 								<field name="email" string="Correo electrónico"/>							
+								<field name="id_tutor1" string="Tutor"/>								
+								<field name="tlf_t1" string="Tlf. contacto"/>
+								<field name="dni_t1" string="DNI Tutor"/>								
+							</group>
+							<group>
+								<field name="dni" string="DNI"/>
+								<field name="nacimiento" string="F. nacimiento"/>
+								<field name="id_tutor2" string="Tutor 2º"/>								
+								<field name="tlf_t2" string="Tlf. contacto"/>																																	
 								<field name="domicilio" string="Domicilio"/>
 								<field name="cpt" string="C. Postal"/>
 								<field name="localidad" string="Localidad"/>	
-								<field name="id_tutor1" string="Tutor"/>								
-								<field name="tlf_t1" string="Tlf. contacto"/>
-								<field name="id_tutor2" string="Tutor 2º"/>								
-								<field name="tlf_t2" string="Tlf. contacto"/>																	
 							</group>
+						</group>
 						</page>													
 						<page string="Aula">
+						<group>
 							<group>
 								<field name="id_tarifa" string="Tarifa"/>
 								<field name="asignaturas" string="Asignaturas"/>
+							</group>
+							<group>
 								<field name="id_horario" string="Horario"/>
-								<field name="observaciones" string="Observaciones"/>																
-							</group>							
+							</group>																		
+						</group>
+							<group>
+								<field name="observaciones" string="Observaciones"/>
+							</group>
+													
 						</page>
 						<page string="Académicos">
+						<group>
 							<group>
-								<field name="id_colegio" string="Colegio"/>	
+								<field name="id_colegio" string="Colegio"/>
+								<field name="id_curso" string="Curso"/>
+							</group>
+							<group>								
 								<field name="id_calificacion" string="Calificaciones"/>
 							</group>
+						</group>
 						</page>													
 						</notebook>
 						
@@ -172,7 +201,7 @@
 					<sheet>
 						<group>
 							<group>
-								<field name="asignatura" string="Asignatura"/>
+								<field name="id_asignatura" string="Asignatura"/>
 								<field name="fecha" string="Fecha"/>
 								<field name="calificacion" string="Calificación"/>
 							</group>	
@@ -180,7 +209,26 @@
 					</sheet>
 				</form>
 			</field>
+		</record>
+		<record id="formulario_horario" model="ir.ui.view">
+			<field name="name">horario.form</field>
+			<field name="model">aulam.horario</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Horario">
+					<sheet>
+						<group>
+							<group>
+								<field name="id_wday" string="Día de semana"/>
+								<field name="checkin" string="Entrada"/>
+								<field name="checkout" string="Salida"/>
+							</group>	
+						</group>									
+					</sheet>
+				</form>
+			</field>
 		</record>  
+		  
 		<record model="ir.ui.view" id="alumno_search_view">
 			<field name="name">alumno.search</field>
 			<field name="model">aulam.alumno</field>
@@ -199,5 +247,7 @@
 		<menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
 		<menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
 		<menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>    	    	<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
+<!--		<menuitem id="asignaturas_listado" name="Asignaturas" parent="aulam_menu" action="asignatura_action"/> -->      
+			  	<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
 	</data>
 </openerp>
