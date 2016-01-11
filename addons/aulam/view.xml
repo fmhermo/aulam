@@ -11,6 +11,18 @@
   				<p>Búsqueda de alumnos</p>
     		</field>
   		</record>
+  		<record id="halumno_action" model="ir.actions.act_window">
+			<field name="name">Histórico de alumnos</field>
+			<field name="type">ir.actions.act_window</field>
+	    	<field name="res_model">aulam.alumno</field>
+    		<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+<!--			<field name="nacimiento"  attrs="{'invisible': [('nacimiento', '=' , False)]}"/> -->
+			<field name="help" type="html">
+  				<p>Búsqueda en el histórico de alumnos</p>
+    		</field>	
+  		</record>
+  		
 		<record id="colegio_action" model="ir.actions.act_window">
 			<field name="name">Listado de colegios</field>
 			<field name="type">ir.actions.act_window</field>
@@ -48,7 +60,8 @@
 				<tree string="Alumnos">
 					<field name="id_partner" string="Nombre"/>
 					<field name="id_colegio" string="Colegio"/>
-					<field name="id_curso" string="Curso"/>				
+					<field name="id_curso" string="Curso"/>
+					<field name="asignaturas" string="Asignaturas"/>			
 					<field name="telefono" string="Tlf. personal"/>
 					<field name="id_tutor1" string="Tutor 1"/>
 					<field name="tlf_t1" string="Teléfono de contacto"/>
@@ -58,6 +71,7 @@
 				</tree>
 			</field>
 		</record>    
+					
 		<record id="view_colegio_tree" model="ir.ui.view">
 			<field name="name">view.colegio.tree</field>
 			<field name="model">aulam.colegio</field>
@@ -128,7 +142,10 @@
 			<field name="arch" type="xml">
 				<form string="Ficha">
 					<sheet>
-						<h1><field name="id_partner" string="Nombre"/></h1>
+						<group><h1><field name="id_partner" string="Nombre"/></h1>
+						<h4 align="right"><field name="anno" string="Año académico"/></h4>
+<!--						<field name="anno" string="Año académico"/> -->
+						</group>						
 						<notebook>
 						<page string="Personales">
 						<group>
@@ -153,10 +170,12 @@
 						</group>
 						</page>													
 						<page string="Aula">
-						<group>
-							<group>
+						<group col="5">
+							<group colspan="2">
 								<field name="id_tarifa" string="Tarifa"/>
-								<field name="asignaturas" string="Asignaturas"/>
+								<field name="fAlta" string="Fecha de Alta"/>
+								<field name="fBaja" string="Fecha de Baja"/>
+								<field name="hExtra" string="Horas Extra"/>							
 							</group>
 							<group>
 								<field name="id_horario" string="Horario"/>
@@ -172,7 +191,7 @@
 							<group>
 								<field name="id_colegio" string="Colegio"/>
 								<field name="id_curso" string="Curso"/>
-							</group>
+								<field name="asignaturas" string="Asignaturas"/>							</group>
 							<group>								
 								<field name="id_calificacion" string="Calificaciones"/>
 							</group>
@@ -246,7 +265,9 @@
 		<menuitem id="alumnos_listado" name="Alumnos" parent="aulam_menu" action="alumno_action"/>
 		<menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
 		<menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
-		<menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>    	    	<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
+		<menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>
+		<menuitem id="historico_listado" name="Historico de alumnos" parent="aulam_menu" action="halumno_action"/>
+		<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
 <!--		<menuitem id="asignaturas_listado" name="Asignaturas" parent="aulam_menu" action="asignatura_action"/> -->      
 			  	<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
 	</data>

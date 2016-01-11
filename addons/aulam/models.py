@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields
+import datetime
 
 class res_partner(models.Model):
     _name = 'res.partner'
@@ -10,6 +11,15 @@ class res_partner(models.Model):
             
 class aulamAlumno(models.Model):
     _name = 'aulam.alumno'
+    
+    def annoAcademico(self):
+        mes = datetime.date.today().month
+        anno = datetime.date.today().year
+        if mes > 9:
+            return str(anno) + '-' + str(anno + 1)
+        else:
+            return str(anno - 1) + '-' + str(anno)
+        
     #_inherit = 'aulam.persona'
     #_inherit = 'res.partner'
     id_partner = fields.Many2one('res.partner', 'Persona', required=True,)
@@ -22,11 +32,11 @@ class aulamAlumno(models.Model):
     fAlta = fields.Date('Fecha de Alta', required=True)
     fBaja = fields.Date(string='Fecha de Baja')
     hExtra = fields.Float(string='Horas Extra')
-    anno = fields.Char('Año académico')
+    anno = fields.Char('Año académico', default=annoAcademico)
     asignaturas = fields.Char(string='Asignaturas')
     telefono = fields.Char('T. Fijo', related='id_partner.phone')
     movil = fields.Char('Móvil', related='id_partner.mobile')
-    nacimiento = fields.Char('F. Nacimiento')
+    nacimiento = fields.Date('F. Nacimiento')
     email = fields.Char('Email', related='id_partner.email')
     domicilio = fields.Char('Direccion', related='id_partner.street')
     cpt = fields.Char('CP', related='id_partner.zip')
@@ -39,6 +49,9 @@ class aulamAlumno(models.Model):
     id_tutor2 = fields.Many2one('res.partner')
     tlf_t2 = fields.Char('Tlf. auxiliar', related='id_tutor2.mobile')
     _rec_name = 'id_partner'
+    
+    def temporada(self):
+        return '2015-2016'
 
 
 class aulamColegio(models.Model):
@@ -61,6 +74,11 @@ class aulamCurso(models.Model):
     #    for elto in self.browse(cr, uid, ids,context=context):
     #        res.append((elto.id, elto.orden + ' de ' + elto.ciclo))    
     #    return res#
+    #def _compute_name(self):
+    #    self.name = "Record with value %s" % self.value
+#@    @api.one
+#@def _compute_name(self):
+#@    self.name = str(random.randint(1, 1e6))
 
 class aulamTarifa(models.Model):
     _name = 'aulam.tarifa'
