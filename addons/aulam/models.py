@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from openerp import models, fields
+from openerp import models, fields, api
 import datetime
 
 class res_partner(models.Model):
@@ -12,7 +12,7 @@ class res_partner(models.Model):
 class aulamAlumno(models.Model):
     _name = 'aulam.alumno'
     
-    def annoAcademico(self):
+    def annoActual(self):
         mes = datetime.date.today().month
         anno = datetime.date.today().year
         if mes > 9:
@@ -32,7 +32,7 @@ class aulamAlumno(models.Model):
     fAlta = fields.Date('Fecha de Alta', required=True)
     fBaja = fields.Date(string='Fecha de Baja')
     hExtra = fields.Float(string='Horas Extra')
-    anno = fields.Char('Año académico', default=annoAcademico)
+    anno = fields.Char('Año académico', default=annoActual)
     asignaturas = fields.Char(string='Asignaturas')
     telefono = fields.Char('T. Fijo', related='id_partner.phone')
     movil = fields.Char('Móvil', related='id_partner.mobile')
@@ -48,8 +48,20 @@ class aulamAlumno(models.Model):
     dni_t1 = fields.Char('DNI tutor', related='id_tutor1.dni')
     id_tutor2 = fields.Many2one('res.partner')
     tlf_t2 = fields.Char('Tlf. auxiliar', related='id_tutor2.mobile')
+    estado = fields.Selection([
+        ('alta', "Alta"),
+        ('baja', "Baja"),
+    ], default='alta')
+
     _rec_name = 'id_partner'
     
+    @api.multi
+    def action_alta(self):
+        self.state = 'alta'
+    def action_baja(self):
+        self.state = 'baja'
+        self.dni = '01/02/16'
+
     def temporada(self):
         return '2015-2016'
 
