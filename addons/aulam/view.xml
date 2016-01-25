@@ -11,17 +11,17 @@
   				<p>Búsqueda de alumnos</p>
     		</field>
   		</record>
-  		<record id="halumno_action" model="ir.actions.act_window">
+<!--  		<record id="halumno_action" model="ir.actions.act_window">
 			<field name="name">Histórico de alumnos</field>
 			<field name="type">ir.actions.act_window</field>
 	    	<field name="res_model">aulam.alumno</field>
     		<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-<!--			<field name="nacimiento"  attrs="{'invisible': [('nacimiento', '=' , False)]}"/> -->
+			<field name="nacimiento"  attrs="{'invisible': [('nacimiento', '=' , False)]}"/>
 			<field name="help" type="html">
   				<p>Búsqueda en el histórico de alumnos</p>
     		</field>	
-  		</record>
+  		</record>   -->
   		
 		<record id="colegio_action" model="ir.actions.act_window">
 			<field name="name">Listado de colegios</field>
@@ -65,7 +65,9 @@
 					<field name="telefono" string="Tlf. personal"/>
 					<field name="id_tutor1" string="Tutor 1"/>
 					<field name="tlf_t1" string="Teléfono de contacto"/>
-	<!--				<field name="id_tutor2" string="Otro tutor"/>  					
+	<!--				<field name="fBaja" string="Fecha de baja"  attrs="{'invisible':[('dni','==','12345678'])}"/>
+										
+					<field name="id_tutor2" string="Otro tutor"/>  					
 					<field name="tlf_t2" string="2º teléfono de contacto"/>  -->					
 					
 				</tree>
@@ -156,7 +158,8 @@
 								<field name="email" string="Correo electrónico"/>							
 								<field name="id_tutor1" string="Tutor"/>								
 								<field name="tlf_t1" string="Tlf. contacto"/>
-								<field name="dni_t1" string="DNI Tutor"/>								
+								<field name="dni_t1" string="DNI Tutor"/>
+								<field name="estado" string="Estado"/>							
 							</group>
 							<group>
 								<field name="dni" string="DNI"/>
@@ -266,8 +269,8 @@
 		<menuitem id="colegios_listado" name="Colegios" parent="aulam_menu" action="colegio_action"/>   
 		<menuitem id="cursos_listado" name="Cursos" parent="aulam_menu" action="curso_action"/>    	    
 		<menuitem id="tarifas_listado" name="Tarifas" parent="aulam_menu" action="tarifa_action"/>
-		<menuitem id="historico_listado" name="Historico de alumnos" parent="aulam_menu" action="halumno_action"/>
-		<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
+		<!-- <menuitem id="historico_listado" name="Historico de alumnos" parent="aulam_menu" action="halumno_action"/>
+		 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
 <!--		<menuitem id="asignaturas_listado" name="Asignaturas" parent="aulam_menu" action="asignatura_action"/> -->      
 			  	<!-- 	<menuitem id="alumnos_busca" name="Busqueda" parent="aulam_menu" action="alumno_search_view"/> -->    	    
 	</data>
