@@ -58,14 +58,14 @@
 			<field name="model">aulam.alumno</field>
 			<field name="arch" type="xml">
 				<tree string="Alumnos">
-					<field name="id_partner" string="Nombre"/>
+					<field name="id_persona" string="Nombre"/>
 					<field name="id_colegio" string="Colegio"/>
 					<field name="id_curso" string="Curso"/>
 					<field name="asignaturas" string="Asignaturas"/>			
 					<field name="telefono" string="Tlf. personal"/>
 					<field name="id_tutor1" string="Tutor 1"/>
-					<field name="tlf_t1" string="Teléfono de contacto"/>
-	<!--				<field name="fBaja" string="Fecha de baja"  attrs="{'invisible':[('dni','==','12345678'])}"/>
+	<!--				<field name="tlf_t1" string="Teléfono de contacto"/>
+					<field name="fBaja" string="Fecha de baja"  attrs="{'invisible':[('dni','==','12345678'])}"/>
 										
 					<field name="id_tutor2" string="Otro tutor"/>  					
 					<field name="tlf_t2" string="2º teléfono de contacto"/>  -->					
@@ -144,7 +144,7 @@
 			<field name="arch" type="xml">
 				<form string="Ficha">
 					<sheet>
-						<group><h1><field name="id_partner" string="Nombre"/></h1>
+						<group><h1><field name="id_persona" string="Nombre"/></h1>
 						<h4 align="right"><field name="anno" string="Año académico"/></h4>
 <!--						<field name="anno" string="Año académico"/> -->
 						</group>						
@@ -154,18 +154,17 @@
 							<group>
 <!--							<field name="image" widget='image' class="oe_avatar oe_left" options='{"preview_image": "image_medium"}'/> -->
 								<field name="telefono" string="Tlf. Fijo"/>								
-								<field name="movil" string="Móvil"/>								
+<!--								<field name="movil" string="Móvil"/> -->								
 								<field name="email" string="Correo electrónico"/>							
 								<field name="id_tutor1" string="Tutor"/>								
-								<field name="tlf_t1" string="Tlf. contacto"/>
-								<field name="dni_t1" string="DNI Tutor"/>
-								<field name="estado" string="Estado"/>							
+<!--								<field name="tlf_t1" string="Tlf. contacto"/> -->
+								<field name="dni_t1" string="DNI Tutor"/>							
 							</group>
 							<group>
 								<field name="dni" string="DNI"/>
 								<field name="nacimiento" string="F. nacimiento"/>
 								<field name="id_tutor2" string="Tutor 2º"/>								
-								<field name="tlf_t2" string="Tlf. contacto"/>																																	
+<!--								<field name="tlf_t2" string="Tlf. contacto"/> -->																																	
 								<field name="domicilio" string="Domicilio"/>
 								<field name="cpt" string="C. Postal"/>
 								<field name="localidad" string="Localidad"/>	
@@ -256,7 +255,7 @@
 			<field name="model">aulam.alumno</field>
 			<field name="arch" type="xml">
 				<search>
-					<field name="id_partner" string="Alumno"/>
+					<field name="id_persona" string="Alumno"/>
 				</search>
 			</field>
 		</record>

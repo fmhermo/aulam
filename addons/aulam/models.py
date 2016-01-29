@@ -3,12 +3,28 @@
 from openerp import models, fields, api
 import datetime
 
-class res_partner(models.Model):
-    _name = 'res.partner'
-    _inherit = 'res.partner'
+#class res_partner(models.Model):
+#    _name = 'res.partner'
+#    _inherit = 'res.partner'
+#    lopd = fields.Char()
+#    dni = fields.Char('DNI')
+
+class aulamPersona(models.Model):
+    _name = 'aulam.persona'
+    
+    nomPersona = fields.Char('Nombre', required=True)
+    apellidos = fields.Char('Apellidos', required=True)
     lopd = fields.Char()
     dni = fields.Char('DNI')
-            
+    telefono = fields.Char('Teléfonos')
+    nacimiento = fields.Date('F. Nacimiento')
+    email = fields.Char('Correo electrónico')
+    domicilio = fields.Char('Dirección')
+    cpt = fields.Char('C. Postal', default='15895')
+    localidad = fields.Char('Localidad', default='Milladoiro')
+    observaciones = fields.Text('Observaciones')
+    _rec_name = 'nomPersona'
+    
 class aulamAlumno(models.Model):
     _name = 'aulam.alumno'
     
@@ -18,12 +34,11 @@ class aulamAlumno(models.Model):
         if mes > 9:
             return str(anno) + '-' + str(anno + 1)
         else:
-            return str(anno - 1) + '-' + str(anno)
-        
+            return str(anno - 1) + '-' + str(anno)    
     #_inherit = 'aulam.persona'
     #_inherit = 'res.partner'
-    id_partner = fields.Many2one('res.partner', 'Persona', required=True,)
-    dni = fields.Char('DNI', related='id_partner.dni')
+    id_persona = fields.Many2one('aulam.persona', 'Persona', required=True,)
+    dni = fields.Char('DNI', related='id_persona.dni')
     id_colegio = fields.Many2one('aulam.colegio','Colegio')
     id_tarifa = fields.Many2one('aulam.tarifa','Tarifa')
     id_curso = fields.Many2one('aulam.curso','Curso')
@@ -34,36 +49,35 @@ class aulamAlumno(models.Model):
     hExtra = fields.Float(string='Horas Extra')
     anno = fields.Char('Año académico', default=annoActual)
     asignaturas = fields.Char(string='Asignaturas')
-    telefono = fields.Char('T. Fijo', related='id_partner.phone')
-    movil = fields.Char('Móvil', related='id_partner.mobile')
-    nacimiento = fields.Date('F. Nacimiento')
-    email = fields.Char('Email', related='id_partner.email')
-    domicilio = fields.Char('Direccion', related='id_partner.street')
-    cpt = fields.Char('CP', related='id_partner.zip')
-    localidad = fields.Char('Localidad', related='id_partner.city')
-    observaciones = fields.Text('Observaciones', related='id_partner.comment')
-#    foto = fields.binary('Foto', related='id_partner.image')
-    id_tutor1 = fields.Many2one('res.partner',required=True)
-    tlf_t1 = fields.Char('Tlf. tutor', related='id_tutor1.mobile')
+    telefono = fields.Char('T. Fijo', related='id_persona.telefono')
+    nacimiento = fields.Date('F. Nacimiento', related='id_persona.nacimiento')
+#    movil = fields.Char('Móvil', related='id_persona.mobile')
+    email = fields.Char('Correo electrónico', related='id_persona.email')
+    domicilio = fields.Char('Direccion', related='id_persona.domicilio')
+    cpt = fields.Char('CP', related='id_persona.cpt')
+    localidad = fields.Char('Localidad', related='id_persona.localidad')
+    observaciones = fields.Text('Observaciones', related='id_persona.observaciones')
+#    foto = fields.binary('Foto', related='id_persona.image')
+    id_tutor1 = fields.Many2one('aulam.persona',required=True)
+#   tlf_t1 = fields.Char('Tlf. tutor', related='id_tutor1.telefono')
     dni_t1 = fields.Char('DNI tutor', related='id_tutor1.dni')
-    id_tutor2 = fields.Many2one('res.partner')
-    tlf_t2 = fields.Char('Tlf. auxiliar', related='id_tutor2.mobile')
-    estado = fields.Selection([
-        ('alta', "Alta"),
-        ('baja', "Baja"),
-    ], default='alta')
-
-    _rec_name = 'id_partner'
+    id_tutor2 = fields.Many2one('aulam.persona')
+#    tlf_t2 = fields.Char('Tlf. auxiliar', related='id_tutor2.telefono')
+    #estado = fields.Selection([
+    #    ('alta', "Alta"),
+    #    ('baja', "Baja"),
+    #], default='alta')
+    _rec_name = 'id_persona'
     
-    @api.multi
-    def action_alta(self):
-        self.state = 'alta'
-    def action_baja(self):
-        self.state = 'baja'
-        self.dni = '01/02/16'
+    #@api.multi
+    #def action_alta(self):
+    #    self.state = 'alta'
+    #def action_baja(self):
+    #    self.state = 'baja'
+    #    self.dni = '01/02/16'
 
-    def temporada(self):
-        return '2015-2016'
+    #def temporada(self):
+    #    return '2015-2016'
 
 
 class aulamColegio(models.Model):
