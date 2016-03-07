@@ -57,7 +57,7 @@
 			<field name="model">aulam.alumno</field>
 			<field name="arch" type="xml">
 				<tree string="Alumnos">
-					<field name="id_persona" string="Nombre"/>
+					<field name="nomAlumno" string="Nombre"/>
 					<field name="id_colegio" string="Colegio"/>
 					<field name="id_curso" string="Curso"/>
 					<field name="asignaturas" string="Asignaturas"/>			
@@ -102,10 +102,21 @@
 			<field name="name">view.calificacion.tree</field>
 			<field name="model">aulam.calificacion</field>
 			<field name="arch" type="xml">
-				<tree string="tarifas">
+				<tree string="Calificaciones" editable="bottom">
 					<field name="id_asignatura" string="Asignatura"/>
 					<field name="fecha" string="Fecha"/>
 					<field name="calificacion" string="Nota"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_evaluacion_tree" model="ir.ui.view">
+			<field name="name">view.evaluacion.tree</field>
+			<field name="model">aulam.evaluacion</field>
+			<field name="arch" type="xml">
+				<tree string="Evaluaciones" editable="bottom">
+					<field name="id_evaluacion" string="Evaluación"/>
+					<field name="id_asignatura" string="Asignatura"/>
+					<field name="calificacion" string="Calificación"/>
 				</tree>
 			</field>
 		</record> 	
@@ -113,8 +124,19 @@
 			<field name="name">view.horario.tree</field>
 			<field name="model">aulam.horario</field>
 			<field name="arch" type="xml">
-				<tree string="tarifas">
-					<field name="id_wday" string="Día"/>
+				<tree string="Horario" editable="bottom">
+					<field name="wday" string="Día"/>
+					<field name="checkin" string="Entrada"/>
+					<field name="checkout" string="Salida"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_horariov_tree" model="ir.ui.view">
+			<field name="name">view.horariov.tree</field>
+			<field name="model">aulam.horariov</field>
+			<field name="arch" type="xml">
+				<tree string="Horario de Vacaciones" editable="bottom">
+					<field name="wday" string="Día"/>
 					<field name="checkin" string="Entrada"/>
 					<field name="checkout" string="Salida"/>
 				</tree>
@@ -137,8 +159,8 @@
 				<form string="Persona">
 					<sheet>
 						<group>
-							<h1><field name="nomPersona" string="Nombre"/>
-					    	<field name="apellidos" string="Apellidos"/></h1>
+							<h1><field name="nomPersona" string="Nombre"/></h1>
+<!--					    	<field name="apellidos" string="Apellidos"/></h1>  --> 
 					    </group>
 					    <group col="4">
 					    	<group colspan="2">
@@ -168,20 +190,33 @@
 			<field name="arch" type="xml">
 				<form string="Alumno">
 					<sheet>
-						<group>
-							<h1><field name="id_persona" string="Nombre"/></h1>
-							<h4 align="right"><field name="anno" string="Año académico"/></h4>
-						</group>						
+						<group col="10">
+							<group colspan="6">
+								<h1><field name="nomAlumno" string="Nombre"/></h1>
+							</group>
+							<group colspan="4">
+								<field name="id_season"/>
+							</group>								
+						</group>
+							<!--							<button align="right" class="oe_right oe_stat_button" 
+								type="action" name="facturacion" icon="fa-euro" string="Facturar">
+
+   							</button>
+   							<button align="right" class="oe_right oe_stat_button" 
+								type="action" name="recibo" icon="fa-pencil" string="Recibo">
+
+   							</button>
+-->
 						<notebook>
 							<page string="Personales">
-								<group col="4">
+								<group col="5">
 									<group colspan="2">
 										<field name="id_tutor1" string="Tutor"/>								
 										<field name="id_tutor2" string="Tutor 2º"/>
-										<field name="telefono" string="Tlf. Fijo"/>								
+										<field name="telefono" string="Teléfono"/>								
 										<field name="email" string="Correo electrónico"/>							
 									</group>
-									<group colspan="2">
+									<group colspan="3">
 										<field name="dni_t1" string="DNI Tutor"/>							
 										<field name="nacimiento" string="F. nacimiento"/>
 										<field name="domicilio" string="Domicilio"/>
@@ -191,14 +226,17 @@
 								</group>
 							</page>													
 							<page string="Aula">
-								<group col="5">
+								<group col="4">
 									<group colspan="2">
+										<field name="id_colegio" string="Colegio"/>
+										<field name="id_curso" string="Curso"/>
+										<field name="asignaturas" string="Asignaturas"/>
 										<field name="id_tarifa" string="Tarifa"/>
 										<field name="fAlta" string="Fecha de Alta"/>
 										<field name="fBaja" string="Fecha de Baja"/>
-										<field name="hExtra" string="Horas Extra"/>							
+										<field name="hExtra" string="Horas Extra"/>																	
 									</group>
-									<group colspan="3">
+									<group colspan="2">
 										<field name="id_horario" string="Horario"/>
 									</group>
 								</group>																		
@@ -208,15 +246,18 @@
 							</page>
 							<page string="Académicos">
 								<group col="6">
-									<group colspan="2">
-										<field name="id_colegio" string="Colegio"/>
-										<field name="id_curso" string="Curso"/>
-										<field name="asignaturas" string="Asignaturas"/>
+									<group colspan="3" string="">
+										<field name="id_evaluacion" string="Evaluaciones"/>
 									</group>
-									<group colspan="4">								
+									<group colspan="3">								
 										<field name="id_calificacion" string="Calificaciones"/>
 									</group>
 								</group>
+							</page>
+							<page string="Horario de vacaciones">
+								<group col="5">
+									<field name="id_horariov" string="Horario"/>
+								</group>								
 							</page>													
 						</notebook>
 					</sheet>
@@ -241,7 +282,43 @@
 				</form>
 			</field>
 		</record>
-		<record id="formulario_horario" model="ir.ui.view">
+		<record id="formulario_evaluacion" model="ir.ui.view">
+			<field name="name">evaluacion.form</field>
+			<field name="model">aulam.evaluacion</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Evaluación">
+					<sheet>
+						<group>
+							<group>
+								<field name="id_evaluacion" string="Evaluación"/>
+								<field name="id_asignatura" string="Asignatura"/>
+								<field name="calificacion" string="Calificación"/>
+							</group>	
+						</group>									
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="formulario_horariov" model="ir.ui.view">
+			<field name="name">horariov.form</field>
+			<field name="model">aulam.horariov</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Horario de vacaciones">
+					<sheet>
+						<group>
+							<group>
+								<field name="wday" string="Día de semana"/>
+								<field name="checkin" string="Entrada"/>
+								<field name="checkout" string="Salida"/>
+							</group>	
+						</group>									
+					</sheet>
+				</form>
+			</field>
+		</record>
+				<record id="formulario_horario" model="ir.ui.view">
 			<field name="name">horario.form</field>
 			<field name="model">aulam.horario</field>
 			<field name="type">form</field>
@@ -250,7 +327,7 @@
 					<sheet>
 						<group>
 							<group>
-								<field name="id_wday" string="Día de semana"/>
+								<field name="wday" string="Día de semana"/>
 								<field name="checkin" string="Entrada"/>
 								<field name="checkout" string="Salida"/>
 							</group>	
@@ -265,7 +342,7 @@
 			<field name="model">aulam.alumno</field>
 			<field name="arch" type="xml">
 				<search>
-					<field name="id_persona" string="Alumno"/>
+					<field name="nomAlumno" string="Alumno"/>
 				</search>
 			</field>
 		</record>

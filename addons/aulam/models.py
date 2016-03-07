@@ -13,7 +13,6 @@ class aulamPersona(models.Model):
     _name = 'aulam.persona'
     
     nomPersona = fields.Char('Nombre', required=True)
-    apellidos = fields.Char('Apellidos', required=True)
     lopd = fields.Char()
     dni = fields.Char('DNI')
     telefono = fields.Char('Teléfonos')
@@ -28,35 +27,56 @@ class aulamPersona(models.Model):
 class aulamAlumno(models.Model):
     _name = 'aulam.alumno'
     
-    def annoActual(self):
+    def _get_annoActual(self, cr, uid, context=None):
+        print "Yo!"
         mes = datetime.date.today().month
         anno = datetime.date.today().year
         if mes > 9:
-            return str(anno) + '-' + str(anno + 1)
+            actual = str(anno) + '-' + str(anno + 1)
         else:
-            return str(anno - 1) + '-' + str(anno)    
+            actual = str(anno - 1) + '-' + str(anno)
+        print actual
+            
+        res = self.pool.get('aulam.season').search(cr, uid, [('anno','=',actual)], context=context)
+        return res and res[0] or False   
+    
+    _defaults = {
+        #This makes the function go off that sets EUR.
+        'id_season': _get_annoActual
+    } 
     #_inherit = 'aulam.persona'
     #_inherit = 'res.partner'
-    id_persona = fields.Many2one('aulam.persona', 'Persona', required=True,)
-    dni = fields.Char('DNI', related='id_persona.dni')
+    nomAlumno = fields.Char('Nombre', required=True)
+    #id_persona = fields.Many2one('aulam.persona', 'Persona', required=True,)
+    #dni = fields.Char('DNI', related='id_persona.dni')
     id_colegio = fields.Many2one('aulam.colegio','Colegio')
     id_tarifa = fields.Many2one('aulam.tarifa','Tarifa')
     id_curso = fields.Many2one('aulam.curso','Curso')
     id_calificacion = fields.One2many('aulam.calificacion','id_alumno','Calificacion')
+    id_evaluacion = fields.One2many('aulam.evaluacion','id_alumno','Evaluaciones')
     id_horario = fields.One2many('aulam.horario','id_alumno','Horario')
+    id_horariov = fields.One2many('aulam.horariov','id_alumno','Horario de Vacaciones')
     fAlta = fields.Date('Fecha de Alta', required=True)
     fBaja = fields.Date(string='Fecha de Baja')
     hExtra = fields.Float(string='Horas Extra')
-    anno = fields.Char('Año académico', default=annoActual)
+    id_season = fields.Many2one('aulam.season', 'Año académico')
     asignaturas = fields.Char(string='Asignaturas')
-    telefono = fields.Char('T. Fijo', related='id_persona.telefono')
-    nacimiento = fields.Date('F. Nacimiento', related='id_persona.nacimiento')
+    #telefono = fields.Char('T. Fijo', related='id_persona.telefono')
+    telefono = fields.Char('Teléfono')
+    nacimiento = fields.Date('F. Nacimiento')
+    lopd = fields.Char()
+    #nacimiento = fields.Date('F. Nacimiento', related='id_persona.nacimiento')
+    nacimiento = fields.Date('F. Nacimiento')
 #    movil = fields.Char('Móvil', related='id_persona.mobile')
-    email = fields.Char('Correo electrónico', related='id_persona.email')
-    domicilio = fields.Char('Direccion', related='id_persona.domicilio')
-    cpt = fields.Char('CP', related='id_persona.cpt')
-    localidad = fields.Char('Localidad', related='id_persona.localidad')
-    observaciones = fields.Text('Observaciones', related='id_persona.observaciones')
+    #email = fields.Char('Correo electrónico', related='id_persona.email')
+    email = fields.Char('Correo electrónico')
+    #domicilio = fields.Char('Direccion', related='id_persona.domicilio')
+    domicilio = fields.Char('Direccion')
+    cpt = fields.Char('CP', default='15895')
+    #localidad = fields.Char('Localidad', related='id_persona.localidad')
+    localidad = fields.Char('Localidad', default='Milladoiro')
+    #observaciones = fields.Text('Observaciones', related='id_persona.observaciones')
+    observaciones = fields.Text('Observaciones')
 #    foto = fields.binary('Foto', related='id_persona.image')
     id_tutor1 = fields.Many2one('aulam.persona',required=True)
 #   tlf_t1 = fields.Char('Tlf. tutor', related='id_tutor1.telefono')
@@ -67,7 +87,7 @@ class aulamAlumno(models.Model):
     #    ('alta', "Alta"),
     #    ('baja', "Baja"),
     #], default='alta')
-    _rec_name = 'id_persona'
+    _rec_name = 'nomAlumno'
     
     #@api.multi
     #def action_alta(self):
@@ -116,18 +136,43 @@ class aulamCalificacion(models.Model):
     _name = 'aulam.calificacion'
     id_alumno = fields.Many2one('aulam.alumno','Alumno')
     id_asignatura = fields.Many2one('aulam.asignatura','Asignatura')
-    fecha = fields.Date(string='Fecha de la calificación')
+    fecha = fields.Date(string='Fecha')
     calificacion = fields.Float('Calificación', digits=(3,2))
+    anno = fields.Char(string='Curso Académico')
+    
+class aulamEvaluacion(models.Model):
+    _name = 'aulam.evaluacion'
+    id_alumno = fields.Many2one('aulam.alumno','Alumno')
+    id_evaluacion = fields.Selection([('primera', 'Primera'), ('segunda', 'Segunda'), ('tercera', 'Tercera')])
+    id_asignatura = fields.Many2one('aulam.asignatura','Asignatura')
+    fecha = fields.Date(string='Fecha de la evaluación')
+    calificacion = fields.Char('Calificación')
     anno = fields.Char(string='Curso Académico')
     
 class aulamHorario(models.Model):
     _name = 'aulam.horario'
     id_alumno = fields.Many2one('aulam.alumno','Alumno')
     anno = fields.Char('Curso Académico')
-    id_wday = fields.Many2one('aulam.wday', 'Día de la semana')
+    wday = fields.Selection([('Lu', 'Lunes'),
+                             ('Ma', 'Martes'),
+                             ('Mi', 'Miércoles'),
+                             ('Ju', 'Jueves'),
+                             ('Vi', 'Viernes')])
+    #id_wday = fields.Many2one('aulam.wday', 'Día de la semana')
     checkin = fields.Char(string='Entrada')
     checkout = fields.Char(string='Salida')
-
+class aulamHorarioV(models.Model):
+    _name = 'aulam.horariov'
+    id_alumno = fields.Many2one('aulam.alumno','Alumno')
+    anno = fields.Char('Curso Académico')
+    wday = fields.Selection([('Lu', 'Lunes'),
+                             ('Ma', 'Martes'),
+                             ('Mi', 'Miércoles'),
+                             ('Ju', 'Jueves'),
+                             ('Vi', 'Viernes')])
+    #id_wday = fields.Many2one('aulam.wday', 'Día de la semana')
+    checkin = fields.Char(string='Entrada')
+    checkout = fields.Char(string='Salida')
     #partner_id = fields.many2
 class aulamFactura(models.Model):
     _name = 'aulam.factura'
@@ -142,8 +187,7 @@ class aulamAsignatura(models.Model):
     nomAsignatura = fields.Char('Asignatura')
     _rec_name = 'nomAsignatura'
     
-class wday(models.Model):
-    _name = 'aulam.wday'
-    wd = fields.Char('Abreviatura')
-    weekday = fields.Char('Día de la semana')
-    _rec_name = 'wd'
+class aulamSeason(models.Model):
+    _name = 'aulam.season'
+    anno = fields.Char('Curso Académico')
+    _rec_name = 'anno'
