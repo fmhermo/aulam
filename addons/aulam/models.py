@@ -191,3 +191,4 @@ class aulamSeason(models.Model):
     _name = 'aulam.season'
     anno = fields.Char('Curso Académico')
     _rec_name = 'anno'
+    
